@@ -1,10 +1,10 @@
-package com.example.project.controllers;
+package com.example.project.user.controllers;
 
-import com.neko.seed.auth.annotation.Auth;
-import com.neko.seed.base.entity.Result;
-import com.neko.seed.user.data.SignInData;
-import com.neko.seed.user.data.SignUpData;
-import com.neko.seed.user.service.UserService;
+import com.example.project.auth.annotation.Auth;
+import com.example.project.base.entries.Result;
+import com.example.project.user.data.SignInData;
+import com.example.project.user.data.SignUpData;
+import com.example.project.user.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/signIn")
+    @PostMapping("/signin")
     public Result signIn(@RequestBody @Validated SignInData data) {
         return new Result().success(userService.signIn(data));
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public Result signUp(@RequestBody @Validated SignUpData data) {
         userService.signUp(data);
         return new Result().success();
@@ -36,7 +36,7 @@ public class UserController {
         return new Result().success(userService.getById(userId));
     }
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public Result list(@Auth Long userId) {
         return new Result().success(userService.list());
     }
